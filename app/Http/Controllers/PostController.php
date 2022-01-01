@@ -20,7 +20,7 @@ class PostController extends Controller
             // 'posts' => $this->getPosts(),
             'posts' => Post::latest()->filter(
                 request(['search'])
-            )->paginate(3)
+            )->paginate(6)
         ]);
     }
 

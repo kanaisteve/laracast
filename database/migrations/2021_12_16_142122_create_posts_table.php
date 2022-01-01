@@ -15,7 +15,8 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            // if we delete the user should we also cascade and delete the user's post (usually: YES) 
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // maintaining the consistency of the database.
             $table->foreignId('category_id');
             $table->string('title');
             $table->string('slug')->unique();

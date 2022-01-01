@@ -22,21 +22,7 @@
 
                 <div class="col-span-8">
                     <div class="hidden lg:flex justify-between mb-6">
-                        <a href="/"
-                            class="transition-colors duration-300 relative inline-flex items-center text-lg hover:text-blue-500">
-                            <svg width="22" height="22" viewBox="0 0 22 22" class="mr-2">
-                                <g fill="none" fill-rule="evenodd">
-                                    <path stroke="#000" stroke-opacity=".012" stroke-width=".5" d="M21 1v20.16H.84V1z">
-                                    </path>
-                                    <path class="fill-current"
-                                        d="M13.854 7.224l-3.847 3.856 3.847 3.856-1.184 1.184-5.04-5.04 5.04-5.04z">
-                                    </path>
-                                </g>
-                            </svg>
-
-                            Back to Posts
-                        </a>
-
+                        <x-links.back-link href="/">Back to Posts</x-links.back-link>
                         <div class="space-x-2">
                             <x-category-button :category="$post->category" />
                         </div>
@@ -45,6 +31,34 @@
                     <h1 class="font-bold text-3xl lg:text-4xl mb-10">{{ $post->title }}</h1>
 
                     <div class="space-y-4 lg:text-lg leading-loose">{!! $post->body !!}</div>
+                    
+                    <!-- Comment Section  -->
+                    <section class="mt-10 space-y-6">
+                        {{-- Show comment form --}}
+                        @include('posts._add-comment-form')
+
+                        {{-- Show all comments associate to the current post --}}
+                        @foreach ($post->comments as $comment)
+                            {{-- <x-post-comment :comment="$comment" /> --}}
+                            <x-panel class="bg-gray-50">
+                                <article class="flex space-x-4">
+                                    <!-- Comment Image -->
+                                    <div class="flex-shrink-0">
+                                        <img src="https://i.pravatar.cc/60?u={{ $comment->user_id }}" width="60" height="60" alt="" class="rounded-xl">
+                                    </div>
+                                    <!-- Comment Body -->
+                                    <div>
+                                        <header class="mb-4">
+                                            <h3 class="font-bold">{{ $comment->author->username }}</h3>
+                                            <p class="text-xs">Posted <time>{{ $comment->created_at->format('F j, Y, g:i a') }}</time></p>
+                                        </header>
+                                            
+                                        <p class="text-xs">{{ $comment->body }}</p>
+                                    </div>
+                                </article>
+                            </x-panel>
+                        @endforeach
+                    </section>
                 </div>
             </article>
         </main>
