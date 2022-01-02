@@ -15,7 +15,7 @@ class Post extends Model
     protected $table = 'posts';
     public $timestamp = true;
 
-    protected $fillable = ['title', 'slug', 'excerpt', 'body', 'category_id'];
+    protected $fillable = ['user_id', 'title', 'slug', 'thumbnail', 'excerpt', 'body', 'category_id'];
 
     // default query from the database to fetch post with category and author fields
     protected $with = ['category', 'author'];

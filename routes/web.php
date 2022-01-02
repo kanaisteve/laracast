@@ -16,3 +16,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::get('admin/posts/create', [PostController::class,'create'])->middleware('admin');
+Route::post('admin/posts' ,[PostController::class,'store'])->middleware('admin');
