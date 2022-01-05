@@ -1,61 +1,27 @@
 <x-layout>
     <section class="px-6 py-8">
-        <main class="max-w-lg mx-auto mt-10 bg-gray-100 border border-gray-200 p-6 rounded-xl">
-            <h1 class="text-center font-bold text-xl">Register</h1>
-            <form method="POST" action="/signup" class="mt-10">
-                @csrf
-                <!-- Name -->
-                <div class="mb-6">
-                    <label for="name" class="block mb-2 uppercase font-bold text-xs text-gray-700">Name</label>
-                    <input type="text" class="border border-gray-400 p-2 w-full" value="{{ old('name') }}" name="name" id="name" required>
-                    @error('name')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+        <main class="max-w-lg mx-auto mt-10">
+            <x-panel>
+                <h1 class="text-center font-bold text-xl">Create an Account</h1>
+                <form method="POST" action="/signup" class="mt-10">
+                    @csrf
 
-                <!-- Username -->
-                <div class="mb-6">
-                    <label for="username" class="block mb-2 uppercase font-bold text-xs text-gray-700">Username</label>
-                    <input type="text" class="border border-gray-400 p-2 w-full" value="{{ old('username') }}" name="username" id="username" required>
-                    @error('username')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <x-form.input name="name" type="text" autocomplete="first-last-name" />
+                    <x-form.input name="username" type="text" autocomplete="username" />
+                    <x-form.input name="email" type="email" autocomplete="useremail" />
+                    <x-form.input name="password" type="password" autocomplete="new-password" />
 
-                <!-- Email -->
-                <div class="mb-6">
-                    <label for="email" class="block mb-2 uppercase font-bold text-xs text-gray-700">Email</label>
-                    <input type="email" class="border border-gray-400 p-2 w-full" value="{{ old('email') }}" name="email" id="email" required>
-                    @error('email')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Password -->
-                <div class="mb-6">
-                    <label for="password" class="block mb-2 uppercase font-bold text-xs text-gray-700">Password</label>
-                    <input type="password" class="border border-gray-400 p-2 w-full" name="password" id="password" required>
-                    @error('password')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Submit Btn -->
-                <div class="mb-6">
-                    <button type="submit" class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500">
-                        Submit
-                    </button>
-                </div>
-
-                <!-- option to list all the errors associated with validation -->
-                @if ($errors->any())
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li class="text-red-500 text-xs">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                @endif
-            </form>
+                    <x-btn.submit-btn>Register</x-btn.submit-btn>
+                    <!-- option to list all the errors associated with validation -->
+                    @if ($errors->any())
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-red-500 text-xs">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </form>
+            </x-panel>
         </main>
     </section>
 </x-layout>

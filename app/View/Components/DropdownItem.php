@@ -8,23 +8,16 @@ use App\Models\Category;
 class DropdownItem extends Component
 {
 
-    public $active = false;
+    // public $active;
+
+    /** Create a new component instance. */
+    // public function __construct($active)
+    // {
+    //     $this->active = $active;
+    // }
 
     /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
-     */
+     * Get the view / contents that represent the component. */
     public function render()
     {
         return view('components.dropdown-item');

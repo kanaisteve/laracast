@@ -17,6 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        // $this->authorize('admin');
         return view('posts.index', [
             // 'posts' => $this->getPosts(),
             'posts' => Post::latest()->filter(
@@ -32,35 +33,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // $path = request()->file('thumbnail')->store('thumbnails');
-        // return 'Done: ' . $path;
-
-        $attributes = request()->validate([
-            'title' => 'required',
-            'slug' => ['required', Rule::unique('posts', 'slug')],
-            'thumbnail' => 'required|image',
-            'excerpt' => 'required',
-            'body' => 'required',
-            'category_id' => ['required', Rule::exists('categories', 'id')],
-        ]);
-
-        $attributes['user_id'] = auth()->id();
-        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnail');
-
-        Post::create($attributes);
-
-        return redirect('/');
+        return view('admin.posts.create');
     }
 
     /**

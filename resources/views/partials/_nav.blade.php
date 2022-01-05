@@ -8,11 +8,29 @@
     <div class="mt-8 md:mt-0 flex">
         @auth
             {{-- Authenticated user session --}}
-            <span class="text-xs font-bold uppercase mt-4">Welcome, {{ auth()->user()->name }}!</span>
-            <form action="/logout" method="POST" class="text-xs font-semibold text-blue-500 ml-6 mt-4">
-                @csrf
-                <button type="submit">Log Out</button>
-            </form>
+            <x-dropdown>
+                <x-slot name="trigger">
+                    <button class="text-xs font-bold uppercase mt-4">Welcome, {{ auth()->user()->name }}!</button>
+                </x-slot>
+
+                {{-- @if (auth()->user()->can('admin')) --}}
+                @can('admin') 
+                    {{-- <x-dropdown-item href="/admin/dashboard" class="{{request()->is('admin/posts') ? 'bg-blue-500 text-white' : ''}}">Dashboard</x-dropdown-item> --}}
+                    <x-dropdown-item href="/admin/posts" class="{{request()->is('admin/posts') ? 'bg-blue-500 text-white' : ''}}">Dashboard</x-dropdown-item>
+                    <x-dropdown-item 
+                        href="/admin/posts/create" 
+                        class="{{request()->is('admin/posts/create') ? 'bg-blue-500 text-white' : ''}}"
+                    >New Post</x-dropdown-item>
+                @endcan
+                {{-- @endif --}}
+                
+                <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">Log Out</x-dropdown-item>
+                
+                <form id="logout-form" action="/logout" method="POST" class="hidden">
+                    @csrf
+                </form>
+            </x-dropdown>
+            
         @else
             {{-- Guest session --}}
             <a href="/register" class="text-xs font-bold uppercase mt-4">Register</a>
