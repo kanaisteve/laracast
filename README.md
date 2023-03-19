@@ -1,4 +1,4 @@
-# About Project
+# Laravel Blog Demo Project
 
 ## Project Description
 1. Simple Blog System Project
